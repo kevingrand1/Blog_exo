@@ -1,0 +1,25 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Modifier la catégorie {{ category.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="pt-5 mb-5">
+            {% include ('utils/alert.html.twig') %}
+            <h1>Modification de la catégorie {{ category.name }}</h1>
+            <hr>
+        </div>
+        <div class="row mb-2">
+            {{ form_start(categoryForm, {'attr': {'class': 'd-flex'}}) }}
+                {{ form_widget(categoryForm) }}
+        </div>
+        <button type ="submit" class="my-3 col btn btn-primary">Modifier</button>
+            {{ form_end(categoryForm) }}
+
+        <div class="d-flex mt-3">
+            {% include ('utils/_btn_retour.html.twig') %}
+            {% include ('admin/category/_delete_category.html.twig') %}
+        </div>
+    </div>
+
+{% endblock %}

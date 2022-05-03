@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="pt-5 mb-5">
+        {% include ('utils/alert.html.twig') %}
+        <h1 class="mb-1">Ajouter un cursus</h1>
+        <hr>
+    </div>
+    <div class="row mb-2">
+        {{ form_start(categoryForm, {'attr': {'class': 'd-flex'}}) }}
+        {{ form_widget(categoryForm) }}
+        </div>
+        <button type ="submit" class="mb-4 col btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+        {{ form_end(categoryForm) }}
+    </div>
+</div>
