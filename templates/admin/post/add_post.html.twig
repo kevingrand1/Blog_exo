@@ -1,0 +1,26 @@
+{% extends ('base_admin.html.twig') %}
+
+{% block body %}
+    {% include 'utils/alert.html.twig' %}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_row(form.title) }}
+            </div>
+
+            <div class="col-md-5">
+                {{ form_row(form.content) }}
+            </div>
+
+            <div class="col-md-4">
+                {{ form_row(form.category) }}
+            </div>
+
+             <div class="col-md-2">
+                <p>Statut</p>
+                {{ form_row(form.isActive) }}
+            </div>
+            <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

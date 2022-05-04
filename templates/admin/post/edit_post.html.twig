@@ -1,0 +1,25 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Modifier le post {{ post.id }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="pt-5 mb-5">
+            {% include ('utils/alert.html.twig') %}
+            <h1>Modification du post {{ post.id }}</h1>
+            <hr>
+        </div>
+        <div class="row mb-2">
+            {{ form_start(postForm, {'attr': {'class': 'd-flex'}}) }}
+                {{ form_widget(postForm) }}
+        </div>
+        <button type ="submit" class="my-3 col btn btn-primary">Modifier</button>
+            {{ form_end(postForm) }}
+
+        <div class="d-flex mt-3">
+            {% include ('utils/_btn_retour.html.twig') %}
+            {% include ('admin/post/_delete_post.html.twig') %}
+        </div>
+    </div>
+
+{% endblock %}

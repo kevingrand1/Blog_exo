@@ -1,0 +1,34 @@
+{% extends ('base_admin.html.twig') %}
+
+{% block body %}
+    <div class="pt-5 mb-4">
+        {% include ('utils/alert.html.twig') %}
+        <h1 class="mb-4">Posts <a href="{{ path('admin_add_post') }}" class="badge badge-pill alert-primary text-decoration-none fs-4">Créer un post</a></h1>
+        <hr>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>titre</th>
+                <th>Contenu</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.content }}</td>
+                <td>
+                    <a href="{{ path('admin_edit_post', {'id': post.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun résultat</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

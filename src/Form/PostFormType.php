@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class PostFormType extends AbstractType
 {
@@ -16,9 +20,14 @@ class PostFormType extends AbstractType
                 'label' => 'Titre du post'])
             ->add('content', TextType::class, [
                 'label' => 'Contenu du post'])
-            ->add('isActive', BooleanType::class, [
+            ->add('isActive', CheckboxType::class, [
                 'label' => 'Est-il visible ?'])
-            ->add('category')
+            ->add('category', EntityType::class, [
+                'label' => 'Catégorie',
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Choisir une catégorie',
+            ])
         ;
     }
 
