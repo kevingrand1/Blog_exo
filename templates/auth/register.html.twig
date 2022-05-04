@@ -3,43 +3,42 @@
 {% block title %}Enregistrement{% endblock %}
 
 {% block body %}
-    <div class="container py-5 bg-light rounded shadow-lg">
-        <div class="text-center mb-5">
-            <h1>Formulaire d'inscription</h1>
-            <p>Vous avez déjà un compte ?</p><a href="{{ path('security_login') }}" class="btn btn-outline-primary" role="button">Connectez-vous !</a>
-        </div>
-        {% include 'utils/alert.html.twig' %}
-        {{ form_start(form) }}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        {{ form_row(form.lastName) }}
-    </div>
-</div>
+        <div class="container py-5 bg-light rounded shadow-lg">
+            <div class="text-center mb-5">
+                <h1>Formulaire d'inscription</h1>
+                <p>Vous avez déjà un compte ?</p><a href="{{ path('app_login') }}" class="btn btn-outline-primary" role="button">Connectez-vous !</a>
+            </div>
+            {% include 'utils/alert.html.twig' %}
+            {{ form_start(form) }}
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    {{ form_row(form.lastName) }}
+                </div>
+            </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        {{ form_row(form.firstName) }}
-    </div>
-</div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    {{ form_row(form.firstName) }}
+                </div>
+            </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        {{ form_row(form.email) }}
-    </div>
-</div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    {{ form_row(form.email) }}
+                </div>
+            </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        {{ form_row(form.password) }}
-    </div>
-</div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    {{ form_row(form.password) }}
+                </div>
+            </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-8 my-3 d-flex">
-        <button type ="submit" class="mb-4 col btn btn-primary">{{ button_label|default('Valider') }}</button>
-    </div>
-</div>
-
-{{ form_end(form) }}
+            <div class="row justify-content-center">
+                <div class="col-md-8 my-3 d-flex">
+                    <button type ="submit" class="mb-4 col btn btn-primary">{{ button_label|default('Valider') }}</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
     </div>
 {% endblock %}

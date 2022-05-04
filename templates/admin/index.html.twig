@@ -5,14 +5,13 @@
 <div class="container">
     <div class="pt-5 mb-4">
         {% include ('utils/alert.html.twig') %}
-        <h1 class="mb-4">Administration  <a href="{{ path('admin_add_post') }}" class="badge badge-pill alert-primary text-decoration-none fs-4">Créer un post</a></h1>
+        <h1 class="mb-4">Administration  <a href="{{ path('admin_add_post') }}" class="badge badge-pill alert-primary text-decoration-none fs-4">Créer un post</a><a href="{{ path('admin_show_categories') }}" class="ms-3 badge badge-pill alert-primary text-decoration-none fs-4">Créer une catégorie</a></h1>
         <hr>
     </div>
 
     <section class="mt-5">
         <h2 class="mb-3">Historique des posts</h2>
-<a href="{{ path('admin_show_categories') }}" class="badge badge-pill alert-primary text-decoration-none fs-4">Voir catégories</a>
-        {# boucle foreach post #}
+            {% include ('utils/_show_post.html.twig') %}
         </div>
     </section>
 </div>

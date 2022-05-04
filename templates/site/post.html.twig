@@ -1,0 +1,33 @@
+{% extends ('base.html.twig') %}
+
+{% block body %}
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        <h1 class="">Auteur :<span class="ms-3 badge badge-pill alert-dark">{{ post.user.getFullName }}</span></h1>
+    {% endif %}
+    <hr>
+    <div>
+        <a class="btn btn-outline-primary mb-5" href="
+        {% if is_granted('USER_ADMIN') %}
+            {{ path('admin_index') }}
+        {% else %}
+            {{ path('app_index') }}
+        {% endif %}
+
+        ">Retour a l'accueil<a/>
+    </div>
+    <section>
+        <div class="mt-md-1">
+                <div class="card mb-4 rounded-3 shadow-sm h-100">
+                    <div class="card-header py-3">
+                        <span class="m-0 badge badge-pill alert-info">Catégorie : {{ post.category.name }}</span>
+                        <h3 class="text-center"><span class="fw-bold">{{ post.title }}</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <p>{{post.content}}</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+{% endblock %}

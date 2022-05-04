@@ -17,28 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
-    /**
-     * @Route("/admin/posts/", name="admin_show_posts")
-     */
-    public function showPosts(PostRepository $postRepository, Request $request, ManagerRegistry $doctrine): Response
-    {
-        $post = new Post();
-        $form = $this->createForm(PostFormType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-
-            $em = $doctrine->getManager();
-            $em->persist($form->getData());
-            $em->flush();
-            $this->addFlash('success', 'Le post a bien été ajouté');
-        }
-
-        return $this->render('admin/post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/admin/posts/ajouter", name="admin_add_post")
@@ -64,14 +42,14 @@ class PostController extends AbstractController
 
                 $this->addFlash('success', 'Le post a bien été ajouté');
 
-                return $this->redirectToRoute('admin_show_posts');
+                return $this->redirectToRoute('admin_index');
             } else {
                 $this->addFlash('warning', 'Vous devez selectionner au minimum une catégorie');
             }
         }
 
         return $this->render('/admin/post/add_post.html.twig', [
-            'form' => $form->createView(),
+            'postForm' => $form->createView(),
         ]);
     }
 
@@ -89,7 +67,7 @@ class PostController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Le post a bien été modifié');
 
-            return $this->redirectToRoute('admin_show_posts', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('/admin/post/edit_post.html.twig', [

@@ -36,7 +36,6 @@ class CategoryController extends AbstractController
 
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
-            'form' => $form,
             'categoryForm' => $form->createView()
         ]);
     }
@@ -69,7 +68,8 @@ class CategoryController extends AbstractController
      */
     public function deleteCategory(Request $request, Category $category, ManagerRegistry $doctrine): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), (string) $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), (string) $request->request->get('_token')))
+        {
             $entityManager = $doctrine->getManager();
             $entityManager->remove($category);
             $entityManager->flush();

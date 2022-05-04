@@ -1,26 +1,21 @@
-{% extends ('base_admin.html.twig') %}
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Créer un nouveau post{% endblock %}
 
 {% block body %}
+    <div class="container">
     {% include 'utils/alert.html.twig' %}
-    {{ form_start(form) }}
-        <div class="row">
-            <div class="col-md-5">
-                {{ form_row(form.title) }}
-            </div>
-
-            <div class="col-md-5">
-                {{ form_row(form.content) }}
-            </div>
-
-            <div class="col-md-4">
-                {{ form_row(form.category) }}
-            </div>
-
-             <div class="col-md-2">
-                <p>Statut</p>
-                {{ form_row(form.isActive) }}
-            </div>
-            <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+        <div class="row mb-2">
+            {{ form_start(postForm) }}
+                {{ form_widget(postForm) }}
         </div>
-    {{ form_end(form) }}
+        <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+            {{ form_end(postForm) }}
+
+        <div class="d-flex mt-3">
+
+            {% include ('utils/_btn_retour.html.twig') %}
+        </div>
+    </div>
+
 {% endblock %}

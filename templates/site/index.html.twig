@@ -2,7 +2,12 @@
 
 {% block body %}
 
-<h1>Je suis la page d'accueil du site</h1>
-<h2>Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Connectez vous!</a></h2>
+<h1>Le blog</h1>
+<hr>
+
+<section>
+    <h4>Tout les posts</h4>
+    {% include ('utils/_show_post.html.twig') %}
+</section>
 
 {% endblock %}

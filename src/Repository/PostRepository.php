@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Post;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Entity\User;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -75,4 +76,23 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllByUser(User $user)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllPostActive()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.isActive = 1')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
