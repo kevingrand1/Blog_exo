@@ -1,5 +1,5 @@
 {% extends ('base.html.twig') %}
-
+{% block title %}Catégorie {{ category.slug }} - Le Blog{% endblock %}
 {% block body %}
 
 <h1>Tout les posts de la catégorie : <span class="m-0 badge badge-pill alert-info">{{ category.name }}</span></h1>

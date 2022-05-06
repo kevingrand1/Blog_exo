@@ -1,5 +1,5 @@
 {% extends ('base.html.twig') %}
-
+{% block title %}Auteur {{ user.fullName }}- Le Blog{% endblock %}
 {% block body %}
 
 <h1>Tout les posts de l'auteur : <span class="m-0 badge badge-pill alert-info">{{ user.fullName }}</span></h1>

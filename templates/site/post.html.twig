@@ -1,5 +1,5 @@
 {% extends ('base.html.twig') %}
-
+{% block title %}Post n° {{ post.id }} - Le Blog{% endblock %}
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}

@@ -66,13 +66,6 @@ class PostRepository extends ServiceEntityRepository
                 ->setParameter('q', '%'.$search->q.'%');
         }
 
-        if (isset($search->categories)){
-            $query = $query
-                ->join('p.category', 'c')
-                ->orWhere('c.name IN (:category)')
-                ->setParameter('category', $search->categories);
-        }
-
         return $this->paginator->paginate(
             $query->getQuery()->getResult(),
             $search->page,
