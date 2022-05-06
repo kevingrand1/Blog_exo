@@ -64,21 +64,4 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/supprimer/{id}", name="admin_delete_category")
-     */
-    public function deleteCategory(Request $request, Category $category, ManagerRegistry $doctrine, Post $post): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), (string) $request->request->get('_token')))
-        {
-
-            $entityManager = $doctrine->getManager();
-            $entityManager->remove($category);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'La catégorie a bien été supprimée');
-        }
-
-        return $this->redirectToRoute('admin_show_categories');
-    }
 }
