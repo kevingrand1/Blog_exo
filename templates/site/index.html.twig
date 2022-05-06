@@ -9,6 +9,9 @@
     <h4>Tout les posts</h4>
     {% include 'utils/_search_bar.html.twig' %}
     {% include ('utils/_show_post.html.twig') %}
+    <div class="d-flex justify-content-center mt-5">
+        {{ knp_pagination_render(posts) }}
+    </div>
 </section>
 
 {% endblock %}
