@@ -1,0 +1,14 @@
+{% extends ('base.html.twig') %}
+{% block title %}Catégorie {{ category.slug }} - Le Blog{% endblock %}
+{% block body %}
+
+<h1>Tout les posts de la catégorie : <span class="m-0 badge badge-pill alert-info">{{ category.name }}</span></h1>
+<hr>
+
+<section>
+    <a class="btn btn-outline-primary mb-5" href="{{ path('app_index') }}">Retour a l'accueil<a/>
+    <h4>Tout les posts</h4>
+    {% include 'utils/_show_post.html.twig' %}
+</section>
+
+{% endblock %}

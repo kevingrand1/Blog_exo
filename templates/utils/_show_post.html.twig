@@ -1,25 +1,33 @@
 <div class="row mb-3 text-center d-flex justify-content-start">
     {% for post in posts %}
-        <div class="col-lg-4 col-md-12 mt-md-1">
+        <div class="col-lg-4 col-md-12 mt-md-1 mb-3">
             <div class="card mb-4 rounded-3 shadow-sm h-100">
                 <div class="card-header py-3">
-                    {% if not is_granted('ROLE_ADMIN') %}
-                            <span class="m-0 badge badge-pill alert-dark">Auteur : {{ post.user.getFullName }}</span>
-                    {% else %}
-                        <span class="m-0 badge badge-pill alert-dark"> {{ post.isActive ? 'visible' : 'invisible' }}</span>
-                        <span class="m-0 badge badge-pill alert-dark">Auteur : Moi </span>
-                    {% endif %}</p>
-                        <span class="m-0 badge badge-pill alert-info">Catégorie : {{ post.category.name }}</span>
-                        <h3 class="text-center"><span class="fw-bold">{{ post.title }}</span></h3>
+                    <h3 class="text-center"><span class="fw-bold">{{ post.title|capitalize }}</span></h3>
                 </div>
                 <div class="card-body">
-                    <p class="m-0 text-start">{{ post.content }}</p>
-                     {% if  is_granted('ROLE_ADMIN') %}
-                        <a class="mt-4 btn btn-outline-primary w-100" href="{{ path('admin_edit_post', {'id': post.id}) }}">Modifier</a>
-                    {% else %}
-                        <a class="mt-4 btn btn-outline-primary w-100" href="{{ path('site_show_post', {'id': post.id}) }}">Voir</a>
-                    {% endif %}
+                    <p class="m-0 text-start">{{ post.content|length > 50 ? post.content|slice (0, 60) ~ '...' : post.content }}</p>
 
+                        <a class="my-5 btn btn-outline-primary w-100"
+                        {% if  is_granted('ROLE_ADMIN') %}
+                            href="{{ path('admin_edit_post', {'id': post.id}) }}">Modifier</a>
+                        {% else %}
+                            href="{{path('site_show_post', {'id': post.id}) }}">Voir</a>
+                        {% endif %}
+
+                    <div class="d-flex justify-content-between m-0">
+                        <div>
+                            <p class="m-0 badge badge-pill alert-info">Catégorie : <a href="{{ path('site_show_category' ,{'id': post.category.id}) }}" class="text-start">{{ post.category.name }}</a></p>
+                        </div>
+                        <div>
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                <span class="m-0 badge badge-pill alert-dark">Auteur : <a href="{{ path('site_show_author', {'id': post.user.id}) }}">{{ post.user.getFullName }}</a></span>
+                            {% else %}
+                                <span class="m-0 badge badge-pill alert-{{ post.isActive ? 'dark' : 'danger' }}"> {{ post.isActive ? 'Visible' : 'Invisible' }}</span>
+                                <span class="m-0 badge badge-pill alert-dark">Auteur : Moi </span>
+                            {% endif %}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,4 +45,7 @@
             </div>
         </div>
     {% endfor %}
+</div>
+<div class="d-flex justify-content-center mt-5">
+    {{ knp_pagination_render(posts) }}
 </div>

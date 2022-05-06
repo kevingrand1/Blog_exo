@@ -4,9 +4,12 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\SearchBars\SearchData;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -19,9 +22,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class PostRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Post::class);
+        $this->paginator = $paginator;
     }
 
     /**
@@ -48,39 +52,31 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findSearch(SearchData $search): PaginationInterface
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->orderBy('p.id', 'desc');
+
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('p.title LIKE :q')
+                ->setParameter('q', '%'.$search->q.'%');
+        }
+
+        return $this->paginator->paginate(
+            $query->getQuery()->getResult(),
+            $search->page,
+            6
+        );
     }
-    */
 
     public function findAllByUser(User $user)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.user = :user')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.user = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
@@ -95,4 +91,16 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findAllPostsBySlug ($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.category', 'c')
+            ->andWhere('c.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 }

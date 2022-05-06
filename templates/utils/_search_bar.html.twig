@@ -1,0 +1,11 @@
+<div class="mb-5 d-flex">
+
+    {{ form_start(form) }}
+        <div class="row">
+            <p class="mb-3">Rechercher dans un titre:</p>
+            {{ form_row(form.q) }}
+        </div>
+
+    <button type="submit" class="ms-1 col btn btn-primary">Rechercher</button>
+    {{ form_end(form) }}
+</div>
