@@ -23,6 +23,15 @@ class AppFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
 
+        $admin = (new User())
+                ->setEmail('admin@admin.fr')
+                ->setFirstName('John')
+                ->setLastName('Doe')
+                ->setRoles(['ROLE_ADMIN'])
+            ;
+            $admin->setPassword($this->passwordHasher->hashPassword($admin, 'Admin1234'));
+            $manager->persist($admin);
+
         for ($u = 0; $u < 10; $u++) {
             $user = (new User())
                 ->setEmail($faker->email())
@@ -37,7 +46,7 @@ class AppFixtures extends Fixture
 
         for ($c = 0; $c < 10; $c++) {
             $category = (new Category())
-                ->setName($faker->company());
+                ->setName($faker->safeColorName());
 
             $manager->persist($category);
             $this->addReference('category'.$c, $category);
