@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\SearchBars\SearchData;
 use App\Repository\PostRepository;
+use App\Form\SearchDataFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,11 +15,17 @@ class SiteController extends AbstractController
     /**
      * @Route("/", name="app_index")
      */
-    public function index(PostRepository $postRepository): Response
+    public function index(PostRepository $postRepository, Request $request): Response
     {
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchDataFormType::class, $data);
+        $form->handleRequest($request);
 
+        $posts = $postRepository->findSearch($data);
         return $this->render('site/index.html.twig', [
-            'posts' => $postRepository->findAllPostActive()
+            'form' => $form->createView(),
+            'posts' => $posts,
         ]);
     }
 

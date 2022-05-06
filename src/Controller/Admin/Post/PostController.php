@@ -3,10 +3,7 @@
 namespace App\Controller\Admin\Post;
 
 use App\Entity\Post;
-use App\Entity\Category;
 use App\Form\PostFormType;
-use App\Form\CategoryFormType;
-use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,6 +86,6 @@ class PostController extends AbstractController
             $this->addFlash('success', 'Le post a bien été supprimé');
         }
 
-        return $this->redirectToRoute('admin_show_posts');
+        return $this->redirectToRoute('admin_index');
     }
 }
