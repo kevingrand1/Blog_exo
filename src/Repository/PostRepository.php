@@ -76,7 +76,7 @@ class PostRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query->getQuery()->getResult(),
             $search->page,
-            9
+            4
         );
     }
 
@@ -98,4 +98,16 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findAllPostsBySlug ($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.category', 'c')
+            ->andWhere('c.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 }
