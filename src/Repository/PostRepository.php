@@ -76,7 +76,7 @@ class PostRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query->getQuery()->getResult(),
             $search->page,
-            4
+            6
         );
     }
 

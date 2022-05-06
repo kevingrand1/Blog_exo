@@ -1,6 +1,6 @@
 <div class="row mb-3 text-center d-flex justify-content-start">
     {% for post in posts %}
-        <div class="col-lg-4 col-md-12 mt-md-1">
+        <div class="col-lg-4 col-md-12 mt-md-1 mb-3">
             <div class="card mb-4 rounded-3 shadow-sm h-100">
                 <div class="card-header py-3">
                     {% if not is_granted('ROLE_ADMIN') %}
@@ -36,4 +36,7 @@
             </div>
         </div>
     {% endfor %}
+    <div class="d-flex justify-content-center mt-5">
+        {{ knp_pagination_render(posts) }}
+    </div>
 </div>
