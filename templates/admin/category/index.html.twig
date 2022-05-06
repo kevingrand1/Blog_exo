@@ -1,4 +1,5 @@
 {% extends ('base_admin.html.twig') %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
         {% include 'utils/alert.html.twig' %}
@@ -20,7 +21,7 @@
                         <td>{{ category.name }}</td>
                         <td>{{ category.slug }}</td>
                         <td>
-                            <a href="{{ path('admin_edit_category', {'id': category.id}) }}">Modifier</a>
+                            <a href="{{ path('admin_edit_category', {'slug': category.slug}) }}">Modifier</a>
                         </td>
                     </tr>
                 {% else %}

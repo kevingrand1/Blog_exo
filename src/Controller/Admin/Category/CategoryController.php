@@ -42,7 +42,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/modifier/{id}", name="admin_edit_category")
+     * @Route("/modifier/{slug}", name="admin_edit_category")
      */
     public function editCategory(Request $request, Category $category, ManagerRegistry $doctrine): Response
     {
